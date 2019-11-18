@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //创建Button对象   也就是activity_main.xml里所设置的ID
     Button btn_0,btn_1,btn_2,btn_3,btn_4,btn_5,btn_6,btn_7,btn_8,btn_9,btn_pt;
+    Button btn_si,btn_co,btn_zuo,btn_you;
     Button btn_mul,btn_div,btn_add,btn_sub;
     Button btn_clr,btn_del,btn_eq;
     EditText et_input;
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_clr= (Button) findViewById(R.id.btn_clr);
         btn_del= (Button) findViewById(R.id.btn_del);
         btn_eq= (Button) findViewById(R.id.btn_eq);
+        btn_si=(Button) findViewById(R.id.btn_si) ;
+        btn_co=(Button) findViewById(R.id.btn_co) ;
+        btn_zuo=(Button) findViewById(R.id.btn_zuo) ;
+        btn_you=(Button) findViewById(R.id.btn_you) ;
         et_input= (EditText) findViewById(R.id.et_input);
 
         //给按钮设置的点击事件
@@ -60,7 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_div.setOnClickListener(this);
         btn_clr.setOnClickListener(this);
         btn_del.setOnClickListener(this);
+        btn_si.setOnClickListener(this);
+        btn_co.setOnClickListener(this);
+        btn_zuo.setOnClickListener(this);
+        btn_you.setOnClickListener(this);
         btn_eq.setOnClickListener(this);
+
     }
 
     @Override
@@ -208,6 +219,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             et_input.setText("");
         }
     }
+
+
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
