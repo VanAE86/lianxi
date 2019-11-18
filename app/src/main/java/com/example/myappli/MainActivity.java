@@ -1,358 +1,210 @@
 package com.example.myappli;
 
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import android.app.Activity;
-
-import android.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12,btn13,btn14,btn15,btn16,btn17,btn18,btn19,btn20;
-    private EditText editText;//显示输入的数字
-    private String opt = "+";//操作符
-    private double n1 = 0.0, n2 = 0.0;//两个操作数
-    private TextView textView;//显示算式
-
-    //跟据被选择按钮的id设置监听器
-    private OnClickListener lisenter = new OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            editText = (EditText)findViewById(R.id.editText1);
-            textView = (TextView) findViewById(R.id.textView1);
-            String s = editText.getText().toString();//获取字符串
-            Button btn =(Button)v;
-            try{
-
-                switch(btn.getId())
-                {
-                    case R.id.button1://1
-                    {
-                        String str = editText.getText().toString();
-                        editText.setText(str + 1);
-                        str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button2://+
-                    {
-                        String str = editText.getText().toString();
-                        n1 = Double.parseDouble(str);
-                        opt = "+";
-                        textView.setText(n1 + opt);
-                        editText.setText("");
-                        break;
-                    }
-                    case R.id.button3://2
-                    {
-                        String str = editText.getText().toString();
-                        editText.setText(str + 2);
-                        str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button4://操作符=
-                    {
-                        if(opt == "+")
-                        {
-                            String str = editText.getText().toString();
-                            n2 = Double.parseDouble(str);
-                            textView.setText(n1 + opt + n2 + "=");
-                            editText.setText((n1 + n2) + "");
-                        }
-                        else if(opt == "-")
-                        {
-                            String str = editText.getText().toString();
-                            n2 = Double.parseDouble(str);
-                            textView.setText(n1 + opt + n2 + "=");
-                            editText.setText((n1 - n2) + "");
-                        }
-                        else if(opt == "*")
-                        {
-                            String str = editText.getText().toString();
-                            n2 = Double.parseDouble(str);
-                            textView.setText(n1 + opt + n2 + "=");
-                            editText.setText((n1 * n2) + "");
-                        }
-                        else if(opt == "/")
-                        {
-                            String str = editText.getText().toString();
-                            n2 = Double.parseDouble(str);
-                            if(n2 == 0)
-                            {
-                                editText.setText("");
-                                textView.setText("除数不能为0");
-                                break;
-                            }
-                            else
-                            {
-                                textView.setText(n1 + opt + n2 + "=");
-                                editText.setText((n1 / n2) + "");
-                            }
-                        }
-
-                        break;
-                    }
-                    case R.id.button5://3
-                    {
-                        editText.setText(editText.getText().toString() + 3);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button6://4
-                    {
-                        editText.setText(editText.getText().toString() + 4);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button7://5
-                    {
-                        editText.setText(editText.getText().toString() + 5);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button8://6
-                    {
-                        editText.setText(editText.getText().toString() + 6);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button9://7
-                    {
-                        editText.setText(editText.getText().toString() + 7);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button10://8
-                    {
-                        editText.setText(editText.getText().toString() + 8);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button11://9
-                    {
-                        editText.setText(editText.getText().toString() + 9);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button12://0
-                    {
-                        textView.setText(n1 + opt + 10);
-                        editText.setText(editText.getText().toString() + 0);
-                        String str = editText.getText().toString();
-                        textView.setText(str);
-                        break;
-                    }
-                    case R.id.button13://.
-                    {
-                        String str = editText.getText().toString();
-                        if(str.indexOf(".") != -1) //判断字符串中是否已经包含了小数点，如果有就什么也不做
-                        {
-
-                        }
-                        else //如果没有小数点
-                        {
-                            if(str.equals("0"))//如果开始为0，
-                                editText.setText(("0" + ".").toString());
-                            else if(str.equals(""))//如果初时显示为空，就什么也不做
-                            {
-
-                            }
-                            else
-                                editText.setText(str + ".");
-                        }
-                        break;
-                    }
-                    case R.id.button14://操作符 /
-                    {
-                        String str = editText.getText().toString();
-                        n1 = Double.parseDouble(str);
-                        opt = "/";
-                        editText.setText("");
-                        textView.setText(n1 + opt);
-                        break;
-                    }
-                    case R.id.button15://操作符*
-                    {
-                        String str = editText.getText().toString();
-                        n1 = Double.parseDouble(str);
-                        opt = "*";
-                        editText.setText("");
-                        textView.setText(n1 + opt);
-                        break;
-                    }
-                    case R.id.button16://操作符-
-                    {
-                        String str = editText.getText().toString();
-                        n1 = Double.parseDouble(str);
-                        opt = "-";
-                        editText.setText("");
-                        textView.setText(n1 + opt);
-                        break;
-                    }
-                    case R.id.button17://genhao
-                    {
-                        String str = editText.getText().toString();
-                        n1 = Double.parseDouble(str);
-                        if(n1 < 0)
-                        {
-                            editText.setText("");
-                            textView.setText("负数没有平方根");
-                        }
-                        else
-                        {
-                            editText.setText(Math.sqrt(n1) + "");
-                            textView.setText(n1 + "的平方根是");
-                        }
-
-                        break;
-                    }
-                    case R.id.button18://+/-
-                    {
-                        String str =editText.getText().toString();
-                        n1 = Double.parseDouble(str);
-                        if(str.length() > 0)
-                            editText.setText(-n1 + "");
-                        textView.setText(-n1 + "");
-                        break;
-                    }
-                    case R.id.button19://CE
-                    {
-                        String str =editText.getText().toString();
-                        if(str.length() > 0)
-                            editText.setText("");
-                        break;
-                    }
-                    case R.id.button20://<-
-                    {
-                        String str =editText.getText().toString();
-                        if(str.length() > 0)
-                            editText.setText(str.substring(0, str.length() - 1));
-                        break;
-                    }
-
-                }
-            }catch(Exception e){}
-        }
-    };
+    //创建Button对象   也就是activity_main.xml里所设置的ID
+    Button btn_0,btn_1,btn_2,btn_3,btn_4,btn_5,btn_6,btn_7,btn_8,btn_9,btn_pt;
+    Button btn_mul,btn_div,btn_add,btn_sub;
+    Button btn_clr,btn_del,btn_eq;
+    EditText et_input;
+    boolean clr_flag;    //判断et编辑文本框中是否清空
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //实例化对象
+        setContentView(R.layout.activity_main);
+        btn_0= (Button) findViewById(R.id.btn_0);
+        btn_1= (Button) findViewById(R.id.btn_1);
+        btn_2= (Button) findViewById(R.id.btn_2);
+        btn_3= (Button) findViewById(R.id.btn_3);
+        btn_4= (Button) findViewById(R.id.btn_4);
+        btn_5= (Button) findViewById(R.id.btn_5);
+        btn_6= (Button) findViewById(R.id.btn_6);
+        btn_7= (Button) findViewById(R.id.btn_7);
+        btn_8= (Button) findViewById(R.id.btn_8);
+        btn_9= (Button) findViewById(R.id.btn_9);
+        btn_pt= (Button) findViewById(R.id.btn_pt);
+        btn_add= (Button) findViewById(R.id.btn_add);
+        btn_sub= (Button) findViewById(R.id.btn_sub);
+        btn_mul= (Button) findViewById(R.id.btn_mul);
+        btn_div= (Button) findViewById(R.id.btn_div);
+        btn_clr= (Button) findViewById(R.id.btn_clr);
+        btn_del= (Button) findViewById(R.id.btn_del);
+        btn_eq= (Button) findViewById(R.id.btn_eq);
+        et_input= (EditText) findViewById(R.id.et_input);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment()).commit();
-        }
-        //获取按钮的id
-        btn1 = (Button) findViewById(R.id.button1);
-        btn2 = (Button) findViewById(R.id.button2);
-        btn3 = (Button) findViewById(R.id.button3);
-        btn4 = (Button) findViewById(R.id.button4);
-        btn5 = (Button) findViewById(R.id.button5);
-        btn6= (Button) findViewById(R.id.button6);
-        btn7 = (Button) findViewById(R.id.button7);
-        btn8 = (Button) findViewById(R.id.button8);
-        btn9 = (Button) findViewById(R.id.button9);
-        btn10 = (Button) findViewById(R.id.button10);
-        btn11 = (Button) findViewById(R.id.button11);
-        btn12 = (Button) findViewById(R.id.button12);
-        btn13 = (Button) findViewById(R.id.button13);
-        btn14 = (Button) findViewById(R.id.button14);
-        btn15 = (Button) findViewById(R.id.button15);
-        btn16 = (Button) findViewById(R.id.button16);
-        btn17 = (Button) findViewById(R.id.button17);
-        btn18 = (Button) findViewById(R.id.button18);
-        btn19 = (Button) findViewById(R.id.button19);
-        btn20 = (Button) findViewById(R.id.button20);
-
-            //为按钮添加监听器
-        btn1.setOnClickListener(lisenter);
-        btn2.setOnClickListener(lisenter);
-        btn3.setOnClickListener(lisenter);
-        btn4.setOnClickListener(lisenter);
-        btn5.setOnClickListener(lisenter);
-        btn6.setOnClickListener(lisenter);
-        btn7.setOnClickListener(lisenter);
-        btn8.setOnClickListener(lisenter);
-        btn9.setOnClickListener(lisenter);
-        btn10.setOnClickListener(lisenter);
-        btn11.setOnClickListener(lisenter);
-        btn12.setOnClickListener(lisenter);
-        btn13.setOnClickListener(lisenter);
-        btn14.setOnClickListener(lisenter);
-        btn15.setOnClickListener(lisenter);
-        btn16.setOnClickListener(lisenter);
-        btn17.setOnClickListener(lisenter);
-        btn18.setOnClickListener(lisenter);
-        btn19.setOnClickListener(lisenter);
-        btn20.setOnClickListener(lisenter);
+        //给按钮设置的点击事件
+        btn_0.setOnClickListener(this);
+        btn_1.setOnClickListener(this);
+        btn_2.setOnClickListener(this);
+        btn_3.setOnClickListener(this);
+        btn_4.setOnClickListener(this);
+        btn_5.setOnClickListener(this);
+        btn_6.setOnClickListener(this);
+        btn_7.setOnClickListener(this);
+        btn_8.setOnClickListener(this);
+        btn_9.setOnClickListener(this);
+        btn_pt.setOnClickListener(this);
+        btn_add.setOnClickListener(this);
+        btn_sub.setOnClickListener(this);
+        btn_mul.setOnClickListener(this);
+        btn_div.setOnClickListener(this);
+        btn_clr.setOnClickListener(this);
+        btn_del.setOnClickListener(this);
+        btn_eq.setOnClickListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void onClick(View v) {
+        String str=et_input.getText().toString();
+        switch (v.getId()){
+            case   R.id.btn_0:
+            case   R.id.btn_1:
+            case   R.id.btn_2:
+            case   R.id.btn_3:
+            case   R.id.btn_4:
+            case   R.id.btn_5:
+            case   R.id.btn_6:
+            case   R.id.btn_7:
+            case   R.id.btn_8:
+            case   R.id.btn_9:
+            case   R.id.btn_pt:
+                if(clr_flag){
+                    clr_flag=false;
+                    str="";
+                    et_input.setText("");
+                }
+                et_input.setText(str+((Button)v).getText());
+                break;
+            case R.id.btn_add:
+            case R.id.btn_sub:
+            case R.id.btn_mul:
+            case R.id.btn_div:
+                if(clr_flag){
+                    clr_flag=false;
+                    str="";
+                    et_input.setText("");
+                }
+                if(str.contains("+")||str.contains("-")||str.contains("×")||str.contains("÷")) {
+                    str=str.substring(0,str.indexOf(" "));
+                }
+                et_input.setText(str+" "+((Button)v).getText()+" ");
+                break;
+            case R.id.btn_clr:
+                if(clr_flag)
+                    clr_flag=false;
+                str="";
+                et_input.setText("");
+                break;
+            case R.id.btn_del: //判断是否为空，然后在进行删除
+                if(clr_flag){
+                    clr_flag=false;
+                    str="";
+                    et_input.setText("");
+                }
+                else if(str!=null&&!str.equals("")){
+                    et_input.setText(str.substring(0,str.length()-1));
+                }
+                break;
+            case R.id.btn_eq: //单独运算最后结果
+                getResult();//调用下面的方法
+                break;
+        }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    private void getResult() {
+        String exp=et_input.getText().toString();
+        if(exp==null||exp.equals("")) return ;
+        //因为没有运算符所以不用运算
+        if(!exp.contains(" ")){
+            return ;
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
+        if(clr_flag){
+            clr_flag=false;
+            return;
         }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.activity_main, container, false);
-            return rootView;
+        clr_flag=true;
+        //截取运算符前面的字符串
+        String s1=exp.substring(0,exp.indexOf(" "));
+        //截取的运算符
+        String op=exp.substring(exp.indexOf(" ")+1,exp.indexOf(" ")+2);
+        //截取运算符后面的字符串
+        String s2=exp.substring(exp.indexOf(" ")+3);
+        double cnt=0;
+        if(!s1.equals("")&&!s2.equals("")){
+            double d1=Double.parseDouble(s1);
+            double d2=Double.parseDouble(s2);
+            if(op.equals("+")){
+                cnt=d1+d2;
+            }
+            if(op.equals("-")){
+                cnt=d1-d2;
+            }
+            if(op.equals("×")){
+                cnt=d1*d2;
+            }
+            if(op.equals("÷")){
+                if(d2==0) cnt=0;
+                else cnt=d1/d2;
+            }
+            if(!s1.contains(".")&&!s2.contains(".")&&!op.equals("÷")) {
+                int res = (int) cnt;
+                et_input.setText(res+"");
+            }else {
+                et_input.setText(cnt+"");}
+        }
+        //如果s1是空    s2不是空  就执行下一步
+        else if(!s1.equals("")&&s2.equals("")){
+            double d1=Double.parseDouble(s1);
+            if(op.equals("+")){
+                cnt=d1;
+            }
+            if(op.equals("-")){
+                cnt=d1;
+            }
+            if(op.equals("×")){
+                cnt=0;
+            }
+            if(op.equals("÷")){
+                cnt=0;
+            }
+            if(!s1.contains(".")) {
+                int res = (int) cnt;
+                et_input.setText(res+"");
+            }else {
+                et_input.setText(cnt+"");}
+        }
+        //如果s1是空    s2不是空  就执行下一步
+        else if(s1.equals("")&&!s2.equals("")){
+            double d2=Double.parseDouble(s2);
+            if(op.equals("+")){
+                cnt=d2;
+            }
+            if(op.equals("-")){
+                cnt=0-d2;
+            }
+            if(op.equals("×")){
+                cnt=0;
+            }
+            if(op.equals("÷")){
+                cnt=0;
+            }
+            if(!s2.contains(".")) {
+                int res = (int) cnt;
+                et_input.setText(res+"");
+            }else {
+                et_input.setText(cnt+"");}
+        }
+        else {
+            et_input.setText("");
         }
     }
 }
